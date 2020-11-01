@@ -6,13 +6,13 @@
 
 drop table if exists ALBUM;
 
-drop table if exists ARTISTE;
+drop table if exists ARTIST;
 
-drop table if exists GENRE;
+drop table if exists COUNTRY;
 
-drop table if exists PAYS;
+drop table if exists KIND;
 
-drop table if exists PRODUCTEUR;
+drop table if exists PRODUCER;
 
 drop table if exists TRACKS;
 
@@ -22,54 +22,54 @@ drop table if exists TRACKS;
 create table ALBUM
 (
    ID_ALBUM             int not null,
-   ID_ARTISTE           int not null,
-   ID_GENRE             int not null,
+   ID_ARTIST            int not null,
+   ID_KIND              int not null,
    DESCRIPTION          text not null,
-   TITRE_ALBUM          text not null,
-   DATEPARUTION         date not null,
+   ALBUM_TITLE          text not null,
+   RELEASE_DATE         date not null,
    primary key (ID_ALBUM)
 );
 
 /*==============================================================*/
-/* Table : ARTISTE                                              */
+/* Table : ARTIST                                               */
 /*==============================================================*/
-create table ARTISTE
+create table ARTIST
 (
-   ID_ARTISTE           int not null,
-   ID_PAYS              int not null,
-   NOM                  text not null,
-   PRENOM               text not null,
-   primary key (ID_ARTISTE)
+   ID_ARTIST            int not null,
+   ID_COUNTRY           int not null,
+   NAME                 text not null,
+   FIRST_NAME           text not null,
+   primary key (ID_ARTIST)
 );
 
 /*==============================================================*/
-/* Table : GENRE                                                */
+/* Table : COUNTRY                                              */
 /*==============================================================*/
-create table GENRE
+create table COUNTRY
 (
-   ID_GENRE             int not null,
-   NOM_GENRE            text not null,
-   primary key (ID_GENRE)
+   ID_COUNTRY           int not null,
+   COUNTRY_NAME         text not null,
+   primary key (ID_COUNTRY)
 );
 
 /*==============================================================*/
-/* Table : PAYS                                                 */
+/* Table : KIND                                                 */
 /*==============================================================*/
-create table PAYS
+create table KIND
 (
-   ID_PAYS              int not null,
-   NOMPAYS              text not null,
-   primary key (ID_PAYS)
+   ID_KIND              int not null,
+   KIND_NAME            text not null,
+   primary key (ID_KIND)
 );
 
 /*==============================================================*/
-/* Table : PRODUCTEUR                                           */
+/* Table : PRODUCER                                             */
 /*==============================================================*/
-create table PRODUCTEUR
+create table PRODUCER
 (
    ID_PRODUCTEUR        int not null,
-   NOM                  text not null,
-   PRENOM               text not null,
+   NAME                 text not null,
+   FIRST_NAME           text not null,
    primary key (ID_PRODUCTEUR)
 );
 
@@ -79,30 +79,31 @@ create table PRODUCTEUR
 create table TRACKS
 (
    ID_TRACK             int not null,
-   ID_ARTISTE           int not null,
+   ID_ARTIST            int not null,
    ID_ALBUM             int not null,
    ID_PRODUCTEUR        int not null,
-   NOM_TRACK            text not null,
-   DUREE                int not null,
+   TRACK_NAME           text not null,
+   DURATION             int not null,
    BPM                  int not null,
    primary key (ID_TRACK)
 );
 
-alter table ALBUM add constraint FK_APPARTIENT foreign key (ID_GENRE)
-      references GENRE (ID_GENRE) on delete restrict on update restrict;
+alter table ALBUM add constraint FK_BELONG foreign key (ID_KIND)
+      references KIND (ID_KIND) on delete restrict on update restrict;
 
-alter table ALBUM add constraint FK_INTERPRETE_PAR foreign key (ID_ARTISTE)
-      references ARTISTE (ID_ARTISTE) on delete restrict on update restrict;
+alter table ALBUM add constraint FK_PERFORMED_BY foreign key (ID_ARTIST)
+      references ARTIST (ID_ARTIST) on delete restrict on update restrict;
 
-alter table ARTISTE add constraint FK_REPRESENTE foreign key (ID_PAYS)
-      references PAYS (ID_PAYS) on delete restrict on update restrict;
+alter table ARTIST add constraint FK_REPRESENT foreign key (ID_COUNTRY)
+      references COUNTRY (ID_COUNTRY) on delete restrict on update restrict;
 
-alter table TRACKS add constraint FK_COMPOSE foreign key (ID_ARTISTE)
-      references ARTISTE (ID_ARTISTE) on delete restrict on update restrict;
-
-alter table TRACKS add constraint FK_CONTIENT foreign key (ID_ALBUM)
+alter table TRACKS add constraint FK_COUNTAIN foreign key (ID_ALBUM)
       references ALBUM (ID_ALBUM) on delete restrict on update restrict;
 
-alter table TRACKS add constraint FK_PRODUIT foreign key (ID_PRODUCTEUR)
-      references PRODUCTEUR (ID_PRODUCTEUR) on delete restrict on update restrict;
+alter table TRACKS add constraint FK_PRODUCED_BY foreign key (ID_PRODUCTEUR)
+      references PRODUCER (ID_PRODUCTEUR) on delete restrict on update restrict;
+
+alter table TRACKS add constraint FK_WRITE foreign key (ID_ARTIST)
+      references ARTIST (ID_ARTIST) on delete restrict on update restrict;
+
 
