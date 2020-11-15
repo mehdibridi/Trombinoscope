@@ -1,1 +1,8 @@
-
+titre;url
+Get by artist;"https://api.deezer.com/search?q=artist:"""""
+Get by track;"https://api.deezer.com/search?q=track:"""""
+Get by album;"https://api.deezer.com/search?q=album:"""""
+Get by label;"https://api.deezer.com/search?q=label:"""""
+Get artists by genre;https://api.deezer.com/genre/idGenre/artists
+Get album by artist;https://api.deezer.com/artist/idArtist/albums
+Get chart;https://api.deezer.com/chart/idGenre/tracks
