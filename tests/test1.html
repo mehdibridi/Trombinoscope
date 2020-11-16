@@ -12,9 +12,8 @@
         $.get('https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=artist:"eminem"',                      
         function(json, status){
             var data = json.data;
-            for (var i = 0; i < data.length; i++){
-                console.log(JSON.stringify(data.title));          
-                $("#myData").append(data[i].title+"<br>");
+            for (var i = 0; i < data.length; i++){      
+                $("#myData").append(data[i].title + " - " + data[i].artist.name + "<br>");
             }    
         });   
     </script>
