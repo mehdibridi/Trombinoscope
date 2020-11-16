@@ -13,7 +13,7 @@
         function(json, status){
             var data = json.data;
             for (var i = 0; i < data.length; i++){      
-                $("#myData").append(data[i].title + " - " + data[i].artist.name + "<br>");
+                $("#myData").append(data[i].name + "<br>");
             }    
         });   
     </script>
